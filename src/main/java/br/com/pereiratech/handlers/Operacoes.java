@@ -5,6 +5,7 @@
  */
 package br.com.pereiratech.handlers;
 
+import br.com.pereiratech.utils.Singleton;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -89,8 +90,58 @@ public class Operacoes {
                 }
             }
         }
-        
+        Singleton.getInstance().setModificadoPGM(aux);
+        Singleton.getInstance().setHeaderModificado(headers);
         Matrix.gravarMatrizEmArquivoPGM(aux, output, headers);
+    }
+    /**
+     * Escurece uma matriz MxNx3
+     *
+     * @param entrada Matriz original da imagem
+     * @param coef Coeficiente de escurecimento
+     * @param output Local do arquivo para salver o escurecimento
+     * @param headers Headers da imagem original 
+    * @since 1.1
+     */
+    public static void escurecerPPM(int[][][] entrada, int coef, String output, String[] headers) {
+        if (coef < 0) {
+            throw new IllegalArgumentException("O coef deve ser positivo");
+        }
+
+        int height = entrada[0].length;
+        int width = entrada.length;
+
+        int[][][] aux = new int[width][height][3];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int resultado = entrada[i][j][0] - coef;
+                int resultado1 = entrada[i][j][1] - coef;
+                int resultado2 = entrada[i][j][2] - coef;
+
+                if (resultado < 0) {
+                    aux[i][j][0] = 0;
+                } else {
+                    aux[i][j][0] = resultado;
+                }
+                
+                if (resultado1 < 0) {
+                    aux[i][j][1] = 0;
+                } else {
+                    aux[i][j][1] = resultado1;
+                }
+                
+                if (resultado2 < 0) {
+                    aux[i][j][2] = 0;
+                } else {
+                    aux[i][j][2] = resultado2;
+                }
+                
+            }
+        }
+        Singleton.getInstance().setModificadoPPM(aux);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(aux, output, headers);
     }
     /**
      * Clareia uma matriz MxN
@@ -122,8 +173,57 @@ public class Operacoes {
                 }
             }
         }
-
+        Singleton.getInstance().setModificadoPGM(aux);
+        Singleton.getInstance().setHeaderModificado(headers);
         Matrix.gravarMatrizEmArquivoPGM(aux, output, headers);
+    }
+    /**
+     * Clareia uma matriz MxNx3
+     *
+     * @param entrada Matriz original da imagem
+     * @param coef Coeficiente de clareamento
+     * @param output Local do arquivo para salver o clareamento
+     * @param headers Headers da imagem original
+     * @since 1.1
+     */
+    public static void clarearPPM(int[][][] entrada, int coef, String output, String[] headers) {
+        if (coef < 0) {
+            throw new IllegalArgumentException("O coef deve ser positivo");
+        }
+
+        int height = entrada[0].length;
+        int width = entrada.length;
+
+        int[][][] aux = new int[width][height][3];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int resultado = entrada[i][j][0] + coef;
+                int resultado1 = entrada[i][j][1] + coef;
+                int resultado2 = entrada[i][j][2] + coef;
+
+                if (resultado > 255) {
+                    aux[i][j][0] = 255;
+                } else {
+                    aux[i][j][0] = resultado1;
+                }
+                
+                if (resultado1 > 255) {
+                    aux[i][j][1] = 255;
+                } else {
+                    aux[i][j][1] = resultado1;
+                }
+                
+                if (resultado2 > 255) {
+                    aux[i][j][2] = 255;
+                } else {
+                    aux[i][j][2] = resultado2;
+                }
+            }
+        }
+        Singleton.getInstance().setModificadoPPM(aux);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(aux, output, headers);
     }
     /**
      * Clareia uma matriz MxN
@@ -151,8 +251,53 @@ public class Operacoes {
                 }
             }
         }
-
+        Singleton.getInstance().setModificadoPGM(aux);
+        Singleton.getInstance().setHeaderModificado(headers);
         Matrix.gravarMatrizEmArquivoPGM(aux, output, headers);
+    }
+    /**
+     * Clareia uma matriz MxNx3
+     *
+     * @param entrada Matriz original da imagem
+     * @param output Local do arquivo para salver o negativo
+     * @param headers Headers da imagem original
+     * @since 1.1
+     */
+    public static void negativaPPM(int[][][] entrada, String output, String[] headers) {
+
+        int height = entrada[0].length;
+        int width = entrada.length;
+
+        int[][][] aux = new int[width][height][3];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int resultado = 255 - entrada[i][j][0];
+                int resultado1 = 255 - entrada[i][j][1];
+                int resultado2 = 255 - entrada[i][j][2];
+
+                if (resultado < 0) {
+                    aux[i][j][0] = 0;
+                } else {
+                    aux[i][j][0] = resultado;
+                }
+                
+                if (resultado1 < 0) {
+                    aux[i][j][1] = 0;
+                } else {
+                    aux[i][j][1] = resultado1;
+                }
+                
+                if (resultado2 < 0) {
+                    aux[i][j][2] = 0;
+                } else {
+                    aux[i][j][2] = resultado2;
+                }
+            }
+        }
+        Singleton.getInstance().setModificadoPPM(aux);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(aux, output, headers);
     }
     /**
      * Padroniza uma imagem para evitar erro de leitura (Imagemagick, GIMP, geram arquivos diferentes)
@@ -291,7 +436,7 @@ public class Operacoes {
         } catch (final IOException e) {
             return false;
         }
-
+        
         return true;
     }
     /**
@@ -332,7 +477,7 @@ public class Operacoes {
      * @return boolean
      * @since 1.2
      */
-    public static boolean gravarCanaisSeparados(String fileName) {
+    public static boolean gravarCanaisSeparados(String fileName, String R, String G, String B) {
         String[] headers = Operacoes.extrairHeader(fileName);
         String[] tamanhos = headers[1].split(" ");
 
@@ -342,17 +487,17 @@ public class Operacoes {
         int[][][] matriz = Matrix.lerMatrizEmArquivoPPM(fileName, height, width);
         ArrayList<int[][]> canais = Operacoes.extrairCanais(matriz);
         for(int i = 0; i < canais.size(); i++) {
-            String exportFileName = fileName.replace(".ppm", "");
+            String exportFileName = "";
             headers[0] = "P2";
             switch(i) {
                 case 0:
-                    exportFileName += "R.pgm";
+                    exportFileName = R;
                     break;
                 case 1:
-                    exportFileName += "G.pgm";
+                    exportFileName = G;
                     break;
                 case 2:
-                    exportFileName += "B.pgm";
+                    exportFileName = B;
                     break;
                 default:
                     return false;
@@ -423,7 +568,44 @@ public class Operacoes {
         String[] headersCP = new String[3];
         System.arraycopy(headers, 0, headersCP, 0, 3);  
         headersCP[1] = linhas + " " + colunas;
+        Singleton.getInstance().setModificadoPGM(r);
+        Singleton.getInstance().setHeaderModificado(headersCP);
         Matrix.gravarMatrizEmArquivoPGM(r, output, headersCP);
+    }
+    /**
+     * Realiza a rotação de uma matriz MxN e a grava em um arquivo
+     *
+     * @param matriz Matriz a ser rotacionada
+     * @param direcao Direção a rotacionar a matriz (0-Horário, 1-Anti-Horário)
+     * @param output Arquivo de saída da rotação
+     * @param headers Cabeçalho do arquivo original
+     * @since 1.3
+     */
+    public static void rotacionarPPM(int[][][] matriz, int direcao, String output, String[] headers) {
+        int[][][] r = Matrix.girar90PPM(matriz, direcao);
+        int colunas = Integer.parseInt(headers[1].split(" ")[0]);
+        int linhas = Integer.parseInt(headers[1].split(" ")[1]);
+        String[] headersCP = new String[3];
+        System.arraycopy(headers, 0, headersCP, 0, 3);  
+        headersCP[1] = linhas + " " + colunas;
+        Singleton.getInstance().setModificadoPPM(r);
+        Singleton.getInstance().setHeaderModificado(headersCP);
+        Matrix.gravarMatrizEmArquivoPPM(r, output, headersCP);
+    }
+    /**
+     * Realiza o flip de uma matriz MxNx3 e a grava em um arquivo
+     *
+     * @param matriz Matriz a ser flipada
+     * @param direcao Direção a flipar a matriz (0-Horizontal, 1-Vertical)
+     * @param output Arquivo de saída do flip
+     * @param headers Cabeçalho do arquivo original
+     * @since 1.3
+     */
+    public static void fliparPPM(int[][][] matriz, int direcao, String output, String[] headers) {
+        int[][][] r = Matrix.fliparPPM(matriz, direcao);     
+        Singleton.getInstance().setModificadoPPM(r);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(r, output, headers);
     }
     /**
      * Realiza o flip de uma matriz MxN e a grava em um arquivo
@@ -436,6 +618,8 @@ public class Operacoes {
      */
     public static void flipar(int[][] matriz, int direcao, String output, String[] headers) {
         int[][] r = Matrix.flipar(matriz, direcao);     
+        Singleton.getInstance().setModificadoPGM(r);
+        Singleton.getInstance().setHeaderModificado(headers);
         Matrix.gravarMatrizEmArquivoPGM(r, output, headers);
     }
     /**
@@ -449,7 +633,24 @@ public class Operacoes {
     public static void equalizar(int[][] matriz, String[] headers, String fileName) {
         int L = Integer.parseInt(headers[2]);
         int[][] finalMatriz = Matrix.equalizar(matriz, L+1);
+        Singleton.getInstance().setModificadoPGM(finalMatriz);
+        Singleton.getInstance().setHeaderModificado(headers);
         Matrix.gravarMatrizEmArquivoPGM(finalMatriz, fileName, headers);
+    }
+    /**
+     * Realiza a equalização de um histograma de uma matriz MxNx3
+     *
+     * @param matriz Matriz a ter o histograma equalizado
+     * @param fileName Caminho do arquivo final equlizado
+     * @param headers Cabeçalho do arquivo original
+     * @since 1.3
+     */
+    public static void equalizarPPM(int[][][] matriz, String[] headers, String fileName) {
+        int L = Integer.parseInt(headers[2]);
+        int[][][] finalMatriz = Matrix.equalizarPPM(matriz, L+1);
+        Singleton.getInstance().setModificadoPPM(finalMatriz);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, fileName, headers);
     }
     /**
      * Realiza o fatiamento de uma matriz MxN
@@ -466,6 +667,43 @@ public class Operacoes {
      */
     public static void fatiar(int[][] matriz, int a, int b, int modo, int entre, int fora, String output, String[] headers) {
         int[][] finalMatriz = Matrix.fatiamento(matriz, a, b, modo, entre, fora);
+        Singleton.getInstance().setModificadoPGM(finalMatriz);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);
+    }
+    /**
+     * Realiza o fatiamento de uma matriz MxN
+     *
+     * @param matriz Matriz a ser fatiada
+     * @param a Limite inferior
+     * @param b Limite superior
+     * @param modo Modo de fatiamento (0-Altera o que está fora, 1-Altera somente o que esta no limite)
+     * @param entre Valor a ser assumido caso o valor da matriz esteja dentro do limite
+     * @param fora Valor a ser assumido caso o valor  da matriz esteja fora do limite
+     * @param output Caminho do arquivo final fatiado
+     * @param headers Cabeçalho do arquivo original
+     * @since 1.3
+     */
+    public static void fatiarPPM(int[][][] matriz, int a, int b, int modo, int entre, int fora, String output, String[] headers) {
+        int[][][] finalMatriz = Matrix.fatiamentoPPM(matriz, a, b, modo, entre, fora);
+        Singleton.getInstance().setModificadoPPM(finalMatriz);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers);
+    }
+    /**
+     * Realiza a função gama em uma matriz MxN
+     *
+     * @param matriz Matriz a ser fatiada
+     * @param c Constante
+     * @param gama Nível de gama
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @since 1.3
+     */
+    public static void gama(int[][] matriz, double c, double gama, String[] headers, String output) {
+        int[][] finalMatriz = Matrix.gama(matriz, c, gama);
+        Singleton.getInstance().setModificadoPGM(finalMatriz);
+        Singleton.getInstance().setHeaderModificado(headers);
         Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);
     }
     /**
@@ -478,8 +716,10 @@ public class Operacoes {
      * @param output Caminho do arquivo final aplicado na função
      * @since 1.3
      */
-    public static void gama(int[][] matriz, int c, int gama, String[] headers, String output) {
-        int[][] finalMatriz = Matrix.gama(matriz, c, gama);
-        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);
+    public static void gamaPPM(int[][][] matriz, double c, double gama, String[] headers, String output) {
+        int[][][] finalMatriz = Matrix.gamaPPM(matriz, c, gama);
+        Singleton.getInstance().setModificadoPPM(finalMatriz);
+        Singleton.getInstance().setHeaderModificado(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers);
     }
 }

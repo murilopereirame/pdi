@@ -334,7 +334,7 @@ public class Matrix {
         } else {
             for(int x = 0; x < linhas; x++){
                 for(int y = 0; y < colunas; y++) {
-                    mAux[linhas-x-1][colunas - y - 1] = matriz[y][x]; //Rodando normal 
+                    mAux[x][colunas - y-1] = matriz[y][x]; //Rodando normal 
                 }
             }
         }
@@ -366,9 +366,9 @@ public class Matrix {
         } else {
             for(int x = 0; x < linhas; x++){
                 for(int y = 0; y < colunas; y++) {
-                    mAux[linhas-x-1][colunas - y - 1][0] = matriz[y][x][0]; //Rodando normal 
-                    mAux[linhas-x-1][colunas - y - 1][1] = matriz[y][x][1];
-                    mAux[linhas-x-1][colunas - y - 1][2] = matriz[y][x][2];
+                    mAux[x][colunas - y-1][0] = matriz[y][x][0]; //Rodando normal 
+                    mAux[x][colunas - y-1][1] = matriz[y][x][1];
+                    mAux[x][colunas - y-1][2] = matriz[y][x][2];
                 }
             }
         }
@@ -476,6 +476,66 @@ public class Matrix {
         return mAux;
     }
     /**
+     * Realiza o fatiamente de uma imagem P&B MxN
+     *
+     * @param matriz Matriz a ser fatiada
+     * @param a Limite inferior
+     * @param b Limite superior
+     * @param modo Modo de fatiamento (0-Altera o que está fora, 1-Altera somente o que esta no limite)
+     * @param entre Valor a ser assumido caso o valor da matriz esteja dentro do limite
+     * @param fora Valor a ser assumido caso o valor  da matriz esteja fora do limite
+     * @return int[][]
+     * @since 1.3
+     */
+    public static int[][][] fatiamentoPPM(int[][][] matriz, int a, int b, int modo, int entre, int fora) {
+        int colunas = matriz.length;
+        int linhas = matriz[0].length;
+        
+        int[][][] mAux = new int[colunas][linhas][3];
+        
+        for(int i = 0; i < colunas; i++) {
+            for(int j = 0; j < linhas; j++) {
+                if(matriz[i][j][0] >= a && matriz[i][j][0] <= b) {
+                    mAux[i][j][0] = entre;
+                }
+                else {
+                    if(modo == 0) {
+                        mAux[i][j][0] = fora;
+                    }
+                    else {
+                        mAux[i][j][0] = matriz[i][j][0];
+                    }
+                }
+                
+                if(matriz[i][j][1] >= a && matriz[i][j][1] <= b) {
+                    mAux[i][j][1] = entre;
+                }
+                else {
+                    if(modo == 0) {
+                        mAux[i][j][1] = fora;
+                    }
+                    else {
+                        mAux[i][j][1] = matriz[i][j][1];
+                    }
+                }
+                
+                if(matriz[i][j][2] >= a && matriz[i][j][2] <= b) {
+                    mAux[i][j][2] = entre;
+                }
+                else {
+                    if(modo == 0) {
+                        mAux[i][j][2] = fora;
+                    }
+                    else {
+                        mAux[i][j][2] = matriz[i][j][2];
+                    }
+                }
+            }
+        }
+        
+        return mAux;
+    }
+    /**
      * Realiza a função gama em uma matriz MxN
      *
      * @param matriz Matriz a ser fatiada
@@ -484,7 +544,7 @@ public class Matrix {
      * @return int[][]
      * @since 1.3
      */
-    public static int[][] gama(int[][] matriz, int c, int gama) {
+    public static int[][] gama(int[][] matriz, double c, double gama) {
         int colunas = matriz.length;
         int linhas = matriz[0].length;
         
@@ -492,9 +552,41 @@ public class Matrix {
         
         for(int i = 0; i < colunas; i++) {
             for(int j = 0; j < linhas; j++) {
-                double convertido = matriz[i][j]/255;
+                double convertido = matriz[i][j]/255.0;
                 int funcao = (int)Math.round((c*(Math.pow(convertido, gama))));
-                mAux[i][j] = funcao * 255;
+                System.out.println(matriz[i][j]);
+                mAux[i][j] = (int)Math.round(funcao * 255.0);
+            }
+        }   
+        
+        return mAux;
+    }
+    /**
+     * Realiza a função gama em uma matriz MxNx3
+     *
+     * @param matriz Matriz a ser fatiada
+     * @param c Constante
+     * @param gama Nível de gama
+     * @return int[][]
+     * @since 1.3
+     */
+    public static int[][][] gamaPPM(int[][][] matriz, double c, double gama) {
+        int colunas = matriz.length;
+        int linhas = matriz[0].length;
+        
+        int[][][] mAux = new int[colunas][linhas][3];
+        
+        for(int i = 0; i < colunas; i++) {
+            for(int j = 0; j < linhas; j++) {
+                double convertido1 = matriz[i][j][0]/255.0;
+                double convertido2 = matriz[i][j][1]/255.0;
+                double convertido3 = matriz[i][j][2]/255.0;
+                int funcao = (int)Math.round((c*(Math.pow(convertido1, gama))));
+                int funcao1 = (int)Math.round((c*(Math.pow(convertido2, gama))));
+                int funcao2 = (int)Math.round((c*(Math.pow(convertido3, gama))));
+                mAux[i][j][0] = (int)Math.round(funcao * 255.0);
+                mAux[i][j][1] = (int)Math.round(funcao1 * 255.0);
+                mAux[i][j][2] = (int)Math.round(funcao2 * 255.0);
             }
         }   
         
@@ -536,6 +628,76 @@ public class Matrix {
             for(int j = 0; j < linhas; j++) {
                 int valor = matriz[i][j];
                 mAux[i][j] = Sk[valor];
+            }    
+        }
+        
+        return mAux;
+    }
+    
+    /**
+     * Realiza a equalização do histograma de uma matriz MxNx3
+     *
+     * @param matriz Matriz a ser equalizada
+     * @param L Número de bits máximos da imagem
+     * @return int[][]
+     * @since 1.3
+     */
+    public static int[][][] equalizarPPM(int[][][] matriz, int L) {
+        double[] somatoria = new double[L];
+        double[] somatoria1 = new double[L];
+        double[] somatoria2 = new double[L];
+        int[] Sk = new int[L];
+        int[] Sk1 = new int[L];
+        int[] Sk2 = new int[L];
+        int colunas = matriz.length;
+        int linhas = matriz[0].length;
+        
+        int[][][] mAux = new int[colunas][linhas][3];
+        
+        for(int i = 0; i < colunas; i++) {
+            for(int j = 0; j < linhas; j++) {
+                int valor = matriz[i][j][0];
+                somatoria[valor] += 1;
+                
+                int valor1 = matriz[i][j][1];
+                somatoria1[valor1] += 1;
+                
+                int valor2 = matriz[i][j][2];
+                somatoria2[valor2] += 1;
+            }    
+        }
+        
+        double acumulado = 0;
+        double acumulado1 = 0;
+        double acumulado2 = 0;
+        
+        for(int i = 0; i < Sk.length; i++) {
+            double p = somatoria[i]/(colunas*linhas);
+            acumulado += p;
+            double result = (L-2)*acumulado;
+            Sk[i] = (int)Math.round(result);
+            
+            double p1 = somatoria1[i]/(colunas*linhas);
+            acumulado1 += p1;
+            double result1 = (L-2)*acumulado1;
+            Sk1[i] = (int)Math.round(result1);
+            
+            double p2 = somatoria2[i]/(colunas*linhas);
+            acumulado2 += p2;
+            double result2 = (L-2)*acumulado2;
+            Sk2[i] = (int)Math.round(result2);
+        }
+        
+        for(int i = 0; i < colunas; i++) {
+            for(int j = 0; j < linhas; j++) {
+                int valor = matriz[i][j][2];
+                mAux[i][j][0] = Sk[valor];
+                
+                int valor1 = matriz[i][j][1];
+                mAux[i][j][1] = Sk1[valor1];
+                
+                int valor2 = matriz[i][j][2];
+                mAux[i][j][2] = Sk2[valor2];
             }    
         }
         
