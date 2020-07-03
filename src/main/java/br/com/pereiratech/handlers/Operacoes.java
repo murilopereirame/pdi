@@ -380,7 +380,7 @@ public class Operacoes {
 
         int[][] aux;
 
-        final File file2 = new File(fileName+"2");
+        final File file2 = new File(fileName);
         
         String contents = "";
         try {

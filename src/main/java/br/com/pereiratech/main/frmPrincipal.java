@@ -36,7 +36,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle("PDI - FCT Unesp - Murilo Pereira");
-        this.setResizable(false);
     }
 
     /**
@@ -314,18 +313,25 @@ public class frmPrincipal extends javax.swing.JFrame {
                 largura = Integer.parseInt(h[1].split(" ")[0]);
                 altura = Integer.parseInt(h[1].split(" ")[1]);
                 Singleton.getInstance().setHeaderOriginal(h);
+                Singleton.getInstance().setHeaderModificado(h);
                 if(file.toLowerCase().endsWith(".pgm")) {
                     Operacoes.normalizarImagemPGM(file);
-                    Singleton.getInstance().setOriginalPGM(Matrix.lerMatrizEmArquivoPGM(file, altura, largura));
+                    int[][] m = Matrix.lerMatrizEmArquivoPGM(file, altura, largura);
+                    Singleton.getInstance().setOriginalPGM(m);
+                    Singleton.getInstance().setModificadoPGM(m);
                     Singleton.getInstance().setFormato("pgm");
                 }
                 else {
                     Operacoes.normalizarImagemPPM(file);
-                    Singleton.getInstance().setOriginalPPM(Matrix.lerMatrizEmArquivoPPM(file, altura, largura));
+                    int[][][] m = Matrix.lerMatrizEmArquivoPPM(file, altura, largura);
+                    Singleton.getInstance().setOriginalPPM(m);
+                    Singleton.getInstance().setModificadoPPM(m);
                     Singleton.getInstance().setFormato("ppm");
                 }                              
                 if(altura > 241)
                     fatorA = 50;
+                else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 d.setVisible(false);
@@ -360,7 +366,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
                     Operacoes.rotacionar(Singleton.getInstance().getOriginalPGM(), 1, "temp.pgm", Singleton.getInstance().getHeaderOriginal());                    
                 else
-                    Operacoes.rotacionarPPM(Singleton.getInstance().getOriginalPPM(), 1, "temp.pPm", Singleton.getInstance().getHeaderOriginal());
+                    Operacoes.rotacionarPPM(Singleton.getInstance().getOriginalPPM(), 1, "temp.ppm", Singleton.getInstance().getHeaderOriginal());
 
                 BufferedImage img = null;
                 try {
@@ -375,6 +381,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -423,6 +431,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));                
@@ -470,6 +480,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -517,6 +529,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -574,6 +588,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -621,6 +637,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -684,6 +702,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
         
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -732,6 +752,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -787,6 +809,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -843,6 +867,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -877,7 +903,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_button2ActionPerformed
 
     private void btnSplitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSplitActionPerformed
-        if(!Singleton.getInstance().getFormato().equals("PPM"))
+        if(!Singleton.getInstance().getFormato().equals("ppm"))
             return;
         // TODO add your handling code here:
         JDialog d = new JDialog(this, "Aguarde..."); 
@@ -908,6 +934,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                     File fileToSave = fileChooser.getSelectedFile();
                     fileNameR =  fileToSave.getAbsolutePath();            
                 }
+                
+                if(fileNameR.equals(""))
+                    return;
 
                 fileChooser.setDialogTitle("Selecione o caminho para salvar o canal G");   
 
@@ -916,6 +945,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                     File fileToSave = fileChooser.getSelectedFile();
                     fileNameG =  fileToSave.getAbsolutePath();            
                 }
+                
+                if(fileNameG.equals(""))
+                    return;
 
                 fileChooser.setDialogTitle("Selecione o caminho para salvar o canal B");   
 
@@ -924,14 +956,18 @@ public class frmPrincipal extends javax.swing.JFrame {
                     File fileToSave = fileChooser.getSelectedFile();
                     fileNameB =  fileToSave.getAbsolutePath();            
                 }
+                
+                if(fileNameB.equals(""))
+                    return;
                 Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getModificadoPPM(), "temp.pgm", Singleton.getInstance().getHeaderModificado());                                
                 
                 Operacoes.gravarCanaisSeparados("temp.pgm", fileNameR, fileNameG, fileNameB);
+                
+                d.setVisible(false);
             }
         }.start();
-        
-        d.setVisible(false);
-        
+                
+        d.setVisible(true);
     }//GEN-LAST:event_btnSplitActionPerformed
 
     private void btnJoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJoinActionPerformed
@@ -967,6 +1003,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 dialog.setVisible(true);
                 String R = dialog.getDirectory() + dialog.getFile();
                 
+                if(R.equals(""))
+                    return;
+                
                 dialog = new FileDialog((Frame)null, "Selecione o canal G");
                 dialog.setFilenameFilter(new FilenameFilter() {
                     @Override
@@ -981,7 +1020,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                 dialog.setVisible(true);
                 String G = dialog.getDirectory() + dialog.getFile();
                 
-                dialog = new FileDialog((Frame)null, "Selecione o canal G");
+                if(G.equals(""))
+                    return;
+                
+                dialog = new FileDialog((Frame)null, "Selecione o canal B");
                 dialog.setFilenameFilter(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
@@ -994,6 +1036,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 dialog.setMode(FileDialog.LOAD);
                 dialog.setVisible(true);
                 String B = dialog.getDirectory() + dialog.getFile();
+                
+                if(B.equals(""))
+                    return;
                 
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Selecione o caminho para salvar o arquivo final");   
@@ -1028,6 +1073,8 @@ public class frmPrincipal extends javax.swing.JFrame {
                 
                 if(altura > 241)
                     fatorA = 50;
+                 else
+                    fatorA = 60;
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));

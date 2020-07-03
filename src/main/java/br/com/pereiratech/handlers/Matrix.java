@@ -231,7 +231,7 @@ public class Matrix {
      * @return int[][]
      * @since 1.2
      */
-    public static int[][][] lerMatrizEmArquivoPPM(final String fileName, final int linhas, final int colunas) {;
+    public static int[][][] lerMatrizEmArquivoPPM(final String fileName, final int linhas, final int colunas) {
         final File file = new File(fileName);
 
         BufferedReader br = null;
@@ -250,7 +250,6 @@ public class Matrix {
             while ((st = br.readLine()) != null) {
                 if (startIndex > 2) {
                     final String[] aux = st.split(" ");
-
                     int coluna = 0;
                     int colAux = 0;
                     while(coluna < colunas) {
@@ -417,7 +416,7 @@ public class Matrix {
         int colunas = matriz.length;
         int linhas = matriz[0].length;
         
-        int[][][] mAux = new int[colunas][linhas][];
+        int[][][] mAux = new int[colunas][linhas][3];
         
         if(direcao == 0) {
             for(int i = 0; i < colunas; i++) {
