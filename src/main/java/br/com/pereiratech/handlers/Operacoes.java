@@ -16,7 +16,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -51,8 +54,11 @@ public class Operacoes {
                     break;
                 }
 
-                finalStr[index] = st;
-                index++;
+                if(!st.startsWith("#")) {
+                    finalStr[index] = st;
+                    index++;
+                }
+                
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -90,8 +96,8 @@ public class Operacoes {
                 }
             }
         }
-        Singleton.getInstance().setModificadoPGM(aux);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(aux);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(aux, output, headers);
     }
     /**
@@ -139,8 +145,8 @@ public class Operacoes {
                 
             }
         }
-        Singleton.getInstance().setModificadoPPM(aux);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(aux);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(aux, output, headers);
     }
     /**
@@ -173,8 +179,8 @@ public class Operacoes {
                 }
             }
         }
-        Singleton.getInstance().setModificadoPGM(aux);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(aux);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(aux, output, headers);
     }
     /**
@@ -221,8 +227,8 @@ public class Operacoes {
                 }
             }
         }
-        Singleton.getInstance().setModificadoPPM(aux);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(aux);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(aux, output, headers);
     }
     /**
@@ -251,8 +257,8 @@ public class Operacoes {
                 }
             }
         }
-        Singleton.getInstance().setModificadoPGM(aux);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(aux);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(aux, output, headers);
     }
     /**
@@ -295,8 +301,8 @@ public class Operacoes {
                 }
             }
         }
-        Singleton.getInstance().setModificadoPPM(aux);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(aux);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(aux, output, headers);
     }
     /**
@@ -307,7 +313,6 @@ public class Operacoes {
      * @return boolean
      */
     public static boolean normalizarImagemPGM(final String fileName) {
-
         int[][] aux;
 
         final File file = new File(fileName);       
@@ -319,6 +324,14 @@ public class Operacoes {
         } catch (Exception ex) {
             return false;
         }       
+
+        Pattern pattern = Pattern.compile("(#.*?)(?=\n|\r)");
+        Matcher matcher = pattern.matcher(st);
+
+        while(matcher.find()) {
+            st = st.replace(matcher.group(1)+System.getProperty("line.separator"), "");
+        }
+
         st = st.replace(System.getProperty("line.separator"), " ").replace("  ", " ");
         String[] splited = st.split(" ");
 
@@ -345,8 +358,8 @@ public class Operacoes {
         FileWriter fr = null;
         BufferedWriter bw = null;
 
-        String content = tipo + System.getProperty("line.separator") + width + " " + height
-                + System.getProperty("line.separator") + scale + System.getProperty("line.separator");
+        String content = tipo + System.getProperty("line.separator") + width + " " + height + System.getProperty("line.separator") +
+                + scale + System.getProperty("line.separator");
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -477,14 +490,9 @@ public class Operacoes {
      * @return boolean
      * @since 1.2
      */
-    public static boolean gravarCanaisSeparados(String fileName, String R, String G, String B) {
-        String[] headers = Operacoes.extrairHeader(fileName);
-        String[] tamanhos = headers[1].split(" ");
+    public static boolean gravarCanaisSeparados(int[][][] matriz, String R, String G, String B) {
+        String[] headers = Singleton.getInstance().getHeaderOriginal().clone();
 
-        int width = Integer.parseInt(tamanhos[0]);
-        int height = Integer.parseInt(tamanhos[1]);
-
-        int[][][] matriz = Matrix.lerMatrizEmArquivoPPM(fileName, height, width);
         ArrayList<int[][]> canais = Operacoes.extrairCanais(matriz);
         for(int i = 0; i < canais.size(); i++) {
             String exportFileName = "";
@@ -568,8 +576,8 @@ public class Operacoes {
         String[] headersCP = new String[3];
         System.arraycopy(headers, 0, headersCP, 0, 3);  
         headersCP[1] = linhas + " " + colunas;
-        Singleton.getInstance().setModificadoPGM(r);
-        Singleton.getInstance().setHeaderModificado(headersCP);
+        Singleton.getInstance().setOriginalPGM(r);
+        Singleton.getInstance().setHeaderOriginal(headersCP);
         Matrix.gravarMatrizEmArquivoPGM(r, output, headersCP);
     }
     /**
@@ -588,8 +596,8 @@ public class Operacoes {
         String[] headersCP = new String[3];
         System.arraycopy(headers, 0, headersCP, 0, 3);  
         headersCP[1] = linhas + " " + colunas;
-        Singleton.getInstance().setModificadoPPM(r);
-        Singleton.getInstance().setHeaderModificado(headersCP);
+        Singleton.getInstance().setOriginalPPM(r);
+        Singleton.getInstance().setHeaderOriginal(headersCP);
         Matrix.gravarMatrizEmArquivoPPM(r, output, headersCP);
     }
     /**
@@ -603,8 +611,8 @@ public class Operacoes {
      */
     public static void fliparPPM(int[][][] matriz, int direcao, String output, String[] headers) {
         int[][][] r = Matrix.fliparPPM(matriz, direcao);     
-        Singleton.getInstance().setModificadoPPM(r);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(r);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(r, output, headers);
     }
     /**
@@ -618,8 +626,8 @@ public class Operacoes {
      */
     public static void flipar(int[][] matriz, int direcao, String output, String[] headers) {
         int[][] r = Matrix.flipar(matriz, direcao);     
-        Singleton.getInstance().setModificadoPGM(r);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(r);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(r, output, headers);
     }
     /**
@@ -633,8 +641,8 @@ public class Operacoes {
     public static void equalizar(int[][] matriz, String[] headers, String fileName) {
         int L = Integer.parseInt(headers[2]);
         int[][] finalMatriz = Matrix.equalizar(matriz, L+1);
-        Singleton.getInstance().setModificadoPGM(finalMatriz);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(finalMatriz, fileName, headers);
     }
     /**
@@ -648,8 +656,8 @@ public class Operacoes {
     public static void equalizarPPM(int[][][] matriz, String[] headers, String fileName) {
         int L = Integer.parseInt(headers[2]);
         int[][][] finalMatriz = Matrix.equalizarPPM(matriz, L+1);
-        Singleton.getInstance().setModificadoPPM(finalMatriz);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(finalMatriz, fileName, headers);
     }
     /**
@@ -667,8 +675,8 @@ public class Operacoes {
      */
     public static void fatiar(int[][] matriz, int a, int b, int modo, int entre, int fora, String output, String[] headers) {
         int[][] finalMatriz = Matrix.fatiamento(matriz, a, b, modo, entre, fora);
-        Singleton.getInstance().setModificadoPGM(finalMatriz);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);
     }
     /**
@@ -686,8 +694,8 @@ public class Operacoes {
      */
     public static void fatiarPPM(int[][][] matriz, int a, int b, int modo, int entre, int fora, String output, String[] headers) {
         int[][][] finalMatriz = Matrix.fatiamentoPPM(matriz, a, b, modo, entre, fora);
-        Singleton.getInstance().setModificadoPPM(finalMatriz);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers);
     }
     /**
@@ -702,8 +710,8 @@ public class Operacoes {
      */
     public static void gama(int[][] matriz, double c, double gama, String[] headers, String output) {
         int[][] finalMatriz = Matrix.gama(matriz, c, gama);
-        Singleton.getInstance().setModificadoPGM(finalMatriz);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);
     }
     /**
@@ -718,8 +726,520 @@ public class Operacoes {
      */
     public static void gamaPPM(int[][][] matriz, double c, double gama, String[] headers, String output) {
         int[][][] finalMatriz = Matrix.gamaPPM(matriz, c, gama);
-        Singleton.getInstance().setModificadoPPM(finalMatriz);
-        Singleton.getInstance().setHeaderModificado(headers);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
         Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers);
+    }
+    /**
+     * Realiza a aplicação do filtro laplaciando com elemento central 4
+     * em uma matriz MxN
+     * 
+     * @param matriz Matriz a ser fatiada
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @param modo Modo como o filtro será aplicado
+     * 0 - Leva negativos a 0
+     * 1 - Mantém negativos
+     * 2 - Leva a zero proporcionalmente
+     * @since 1.4
+     */
+    public static void laplaciando(int[][] matriz, String[] headers, String output, int modo, int sinal) {
+        int[][] finalMatriz = Matrix.laplaciando(matriz, modo, sinal);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);       
+    }
+    /**
+     * Realiza a aplicação do filtro laplaciando com elemento central 4
+     * em uma matriz MxN e soma com a matriz original
+     * 
+     * @param matriz Matriz a ser filtrada
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @param modo Modo como o filtro será aplicado
+     * 0 - Leva negativos a 0
+     * 1 - Mantém negativos
+     * 2 - Leva a zero proporcionalmente
+     * @since 1.4
+     */
+    public static void laplaciandoPlusOrig(int[][] matriz, String[] headers, String output, int modo, int sinal) {
+        int[][] finalMatriz = Matrix.laplaciando(matriz, modo, sinal);
+        finalMatriz = Matrix.somaMatrizesPGM(finalMatriz, matriz, 255);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a aplicação do filtro laplaciando com elemento central 8
+     * em uma matriz MxN
+     * 
+     * @param matriz Matriz a ser filtrada
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @param modo Modo como o filtro será aplicado
+     * 0 - Leva negativos a 0
+     * 1 - Mantém negativos
+     * 2 - Leva a zero proporcionalmente
+     * @since 1.4
+     */
+    public static void laplaciando2(int[][] matriz, String[] headers, String output, int modo, int sinal) {
+        int[][] finalMatriz = Matrix.laplaciando2(matriz, modo, sinal);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers);       
+    }
+    /**
+     * Realiza a aplicação do filtro laplaciando com elemento central 8
+     * em uma matriz MxN e soma com a matriz original
+     * 
+     * @param matriz Matriz a ser filtrada
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @param modo Modo como o filtro será aplicado
+     * 0 - Leva negativos a 0
+     * 1 - Mantém negativos
+     * 2 - Leva a zero proporcionalmente
+     * @since 1.4
+     */
+    public static void laplaciando2PlusOrig(int[][] matriz, String[] headers, String output, int modo, int sinal) {
+        int[][] finalMatriz = Matrix.laplaciando2(matriz, modo, sinal);
+        finalMatriz = Matrix.somaMatrizesPGM(finalMatriz, matriz, 255);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a aplicação do filtro médio em uma matriz MxN
+     * 
+     * @param matriz Matriz a ser filtrada
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @param n Dimensão do filtro
+     * @since 1.4
+     */
+    public static void filtroMedio(int[][] matriz, String[] headers, String output, int n) {
+        int[][] finalMatriz = Matrix.filtroMedio(matriz, n);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a binarização em uma matriz MxN
+     * 
+     * @param matriz Matriz a ser filtrada
+     * @param headers Cabeçalho do arquivo original
+     * @param output Caminho do arquivo final aplicado na função
+     * @param k Ponto de mudança
+     * @since 1.4
+     */
+    public static void binarizacao(int[][] matriz, String[] headers, String output, int k) {
+        int[][] finalMatriz = Matrix.binarizacao(matriz, k);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a extração de canais RGB em HSI
+     * 
+     * @param matriz Matriz a ser filtrada
+     * @param headers Cabeçalho do arquivo original
+     * @param HOut Caminho do arquivo final do canal H
+     * @param HOut Caminho do arquivo final do canal S
+     * @param HOut Caminho do arquivo final do canal I
+     * @since 1.5
+     */
+    public static void RGB2HSI(int[][][] matriz, String[] headers, String HOut, String SOut, String IOut) {
+        ArrayList<int[][]> channelList = extrairCanais(matriz);
+        ArrayList<int[][]> converted = Matrix.RGB2HSIConvert(channelList);
+        String[] newHeaders = headers.clone();
+        
+        newHeaders[0] = "P2";
+        
+        Matrix.gravarMatrizEmArquivoPGM(converted.get(0), HOut, newHeaders);
+        Matrix.gravarMatrizEmArquivoPGM(converted.get(1), SOut, newHeaders);
+        Matrix.gravarMatrizEmArquivoPGM(converted.get(2), IOut, newHeaders);
+    }
+    /**
+     * Realiza a soma de duas imagens PGM
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param imageB Matriz da imagem a ser somada com a imagem inicial
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void SumImagePGM(int[][] imageA, int[][] imageB, String[] headers, String output) {
+        int[][] finalMatriz = Matrix.somaMatrizesPGM(imageA, imageB, 255);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a soma de duas imagens PPM
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param imageB Matriz da imagem a ser somada com a imagem inicial
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void SumImagePPM(int[][][] imageA, int[][][] imageB, String[] headers, String output) {
+        int[][][] finalMatriz = Matrix.somaMatrizesPPM(imageA, imageB, 255);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a soma de duas imagens PGM
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param imageB Matriz da imagem a ser subtraida da imagem inicial
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void SubImagePGM(int[][] imageA, int[][] imageB, String[] headers, String output) {
+        int[][] finalMatriz = Matrix.subtrairMatrizesPGM(imageA, imageB);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a soma de duas imagens PPM
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param imageB Matriz da imagem a ser subtraida da imagem inicial
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void SubImagePPM(int[][][] imageA, int[][][] imageB, String[] headers, String output) {
+        int[][][] finalMatriz = Matrix.subtrairMatrizesPPM(imageA, imageB);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a multiplicação da matriz por um K
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param k Constante a ser aplicada na matriz
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void MultImageKPGM(int[][] imageA, String[] headers, String output, int k) {
+        int[][] finalMatriz = Matrix.MultKPGM(imageA, k);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a multiplicação da matriz por um K
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param k Constante a ser aplicada na matriz
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void MultImageKPPM(int[][][] imageA, String[] headers, String output, int k) {
+        int[][][] finalMatriz = Matrix.MultKPPM(imageA, k);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers); 
+    }
+
+    /**
+     * Realiza a soma de uma constante k na matriz
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param k Constante a ser somada na matriz
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void SumImageKPGM(int[][] imageA, String[] headers, String output, int k) {
+        int[][] finalMatriz = Matrix.SumKPGM(imageA, k);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    /**
+     * Realiza a soma de uma constante k na matriz
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param k Constante a ser somada na matriz
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void SumImageKPPM(int[][][] imageA, String[] headers, String output, int k) {
+        int[][][] finalMatriz = Matrix.SumKPPM(imageA, k);
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, output, headers); 
+    }
+     /**
+     * Realiza a aplicação do filtro da mediana na matriz
+     * 
+     * @param imageA Matriz da imagem inicial
+     * @param headers Cabeçalho da imagem inicial
+     * @param k Constante a ser somada na matriz
+     * @param output Caminho para a imagem final
+     * @since 1.6
+     */
+    public static void filtroMediana(int[][] matriz, String[] headers, String output) {
+        int[][] finalMatriz = Matrix.filtroMediana(matriz);
+        Singleton.getInstance().setOriginalPGM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPGM(finalMatriz, output, headers); 
+    }
+    
+    public static void processarInstrucoes(Map<String, ArrayList<String>> operacoes) {
+        for (String key : operacoes.keySet()) {
+            switch(key) {
+                case "load":
+                    carregarImagem(operacoes.get(key).get(0));                 
+                break;
+
+                case "save":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        Matrix.gravarMatrizEmArquivoPGM(Singleton.getInstance().getOriginalPGM(), operacoes.get(key).get(0), Singleton.getInstance().getHeaderOriginal());
+                    else
+                        Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getOriginalPPM(), operacoes.get(key).get(0), Singleton.getInstance().getHeaderOriginal());
+                break;
+
+                case "90left":
+                    rotacionar(Singleton.getInstance().getOriginalPGM(), 1, "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                break;
+
+                case "90right":
+                    rotacionar(Singleton.getInstance().getOriginalPGM(), 0, "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                break;
+
+                case "flipv": 
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        flipar(Singleton.getInstance().getOriginalPGM(), 1, "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                    else
+                        fliparPPM(Singleton.getInstance().getOriginalPPM(), 1, "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                break;
+
+                case "fliph": 
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        flipar(Singleton.getInstance().getOriginalPGM(), 0, "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                    else
+                        fliparPPM(Singleton.getInstance().getOriginalPPM(), 0, "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                break;
+
+                case "gama": 
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        gama(Singleton.getInstance().getOriginalPGM(), Double.parseDouble(operacoes.get(key).get(0)), Double.parseDouble(operacoes.get(key).get(1)), Singleton.getInstance().getHeaderOriginal(), "temp.pgm");
+                    else
+                        gamaPPM(Singleton.getInstance().getOriginalPPM(), Double.parseDouble(operacoes.get(key).get(0)), Double.parseDouble(operacoes.get(key).get(1)), Singleton.getInstance().getHeaderOriginal(), "temp.ppm");
+                break;
+
+                case "equalizar":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        equalizar(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm");
+                    else
+                        equalizarPPM(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), "temp.ppm");          
+                break;
+
+                case "clarear":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        clarearPGM(Singleton.getInstance().getOriginalPGM(), Integer.parseInt(operacoes.get(key).get(0)), "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                    else
+                        clarearPPM(Singleton.getInstance().getOriginalPPM(), Integer.parseInt(operacoes.get(key).get(0)),  "temp.ppm", Singleton.getInstance().getHeaderOriginal());          
+                break;
+
+                case "escurecer":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        escurecerPGM(Singleton.getInstance().getOriginalPGM(), Integer.parseInt(operacoes.get(key).get(0)), "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                    else
+                        escurecerPPM(Singleton.getInstance().getOriginalPPM(), Integer.parseInt(operacoes.get(key).get(0)),  "temp.ppm", Singleton.getInstance().getHeaderOriginal());          
+                break;
+
+                case "fatiar":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        fatiar(Singleton.getInstance().getOriginalPGM(), Integer.parseInt(operacoes.get(key).get(0)), Integer.parseInt(operacoes.get(key).get(1)), Integer.parseInt(operacoes.get(key).get(2)), Integer.parseInt(operacoes.get(key).get(3)), Integer.parseInt(operacoes.get(key).get(4)), "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                    else            
+                        fatiarPPM(Singleton.getInstance().getOriginalPPM(), Integer.parseInt(operacoes.get(key).get(0)),  Integer.parseInt(operacoes.get(key).get(1)), Integer.parseInt(operacoes.get(key).get(2)), Integer.parseInt(operacoes.get(key).get(3)), Integer.parseInt(operacoes.get(key).get(4)), "temp.ppm", Singleton.getInstance().getHeaderOriginal());          
+                break;
+
+                case "negativo":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        negativaPGM(Singleton.getInstance().getOriginalPGM(), "temp.pgm", Singleton.getInstance().getHeaderOriginal());
+                    else            
+                        negativaPPM(Singleton.getInstance().getOriginalPPM(), "temp.ppm", Singleton.getInstance().getHeaderOriginal());          
+                break;
+
+                case "split":
+                    if(Singleton.getInstance().getFormato() == "ppm") {
+                        gravarCanaisSeparados(Singleton.getInstance().getOriginalPPM(), operacoes.get(key).get(0), operacoes.get(key).get(1), operacoes.get(key).get(2));
+                    }      
+                break;
+
+                case "join":
+                    juntarCanais(operacoes.get(key).get(0), operacoes.get(key).get(1), operacoes.get(key).get(2));
+                break;
+
+                case "laplaciano":
+                    laplaciando(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", Integer.parseInt(operacoes.get(key).get(0)), Integer.parseInt(operacoes.get(key).get(1)));
+                break;
+
+                case "laplaciano2":
+                    laplaciando2(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", Integer.parseInt(operacoes.get(key).get(0)), Integer.parseInt(operacoes.get(key).get(1)));
+                break;
+
+                case "media":
+                    filtroMedio(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", Integer.parseInt(operacoes.get(key).get(0)));
+                break;
+
+                case "mediana":
+                    filtroMediana(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm");
+                break;
+
+                case "bin":
+                    binarizacao(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", Integer.parseInt(operacoes.get(key).get(0)));
+                break;
+
+                case "rgb2hsi":
+                    RGB2HSI(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), operacoes.get(key).get(0), operacoes.get(key).get(1), operacoes.get(key).get(2));
+                break;
+                
+                case "multk":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        MultImageKPGM(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", Integer.parseInt(operacoes.get(key).get(0)));
+                    else
+                        MultImageKPPM(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), "temp.ppm", Integer.parseInt(operacoes.get(key).get(0)));
+                break;
+
+                case "sumk":
+                    if(Singleton.getInstance().getFormato() == "pgm")
+                        SumImageKPGM(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", Integer.parseInt(operacoes.get(key).get(0)));
+                    else
+                        SumImageKPPM(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), "temp.ppm", Integer.parseInt(operacoes.get(key).get(0)));
+                break;
+
+                case "sumimg":
+                    if(Singleton.getInstance().getFormato() == "pgm") {
+                        int[][] secondSumImg = lerImagemPGM(operacoes.get(key).get(0));
+                        SumImagePGM(Singleton.getInstance().getOriginalPGM(), secondSumImg, Singleton.getInstance().getHeaderOriginal(), "temp.pgm");
+                    }
+                    else {
+                        int[][][] secondSumImg = lerImagemPPM(operacoes.get(key).get(0));
+                        SumImagePPM(Singleton.getInstance().getOriginalPPM(), secondSumImg, Singleton.getInstance().getHeaderOriginal(), "temp.ppm");
+                    }
+                break;
+
+                case "subimg":
+                    if(Singleton.getInstance().getFormato() == "pgm") {
+                        int[][] secondSubImg = lerImagemPGM(operacoes.get(key).get(0));
+                        SubImagePGM(Singleton.getInstance().getOriginalPGM(), secondSubImg, Singleton.getInstance().getHeaderOriginal(), "temp.pgm");
+                    }
+                    else {
+                        int[][][] secondSubImg = lerImagemPPM(operacoes.get(key).get(0));
+                        SubImagePPM(Singleton.getInstance().getOriginalPPM(), secondSubImg, Singleton.getInstance().getHeaderOriginal(), "temp.ppm");
+                    }
+                break;
+
+                default:
+                    System.out.println("Operação inválida! Op: " + key);
+                break;
+            }
+        }
+    }
+
+    public static void juntarCanais(String R, String G, String B) {
+        ArrayList<int[][]> canais = new ArrayList<int[][]>();
+        String[] headers = extrairHeader(R);
+        headers[0] = "P3";
+        String[] tamanhosLidos = headers[1].split(" ");
+
+        int[][] matrizR = Matrix.lerMatrizEmArquivoPGM(R, Integer.parseInt(tamanhosLidos[0]), Integer.parseInt(tamanhosLidos[1]));
+        int[][] matrizG = Matrix.lerMatrizEmArquivoPGM(G, Integer.parseInt(tamanhosLidos[0]), Integer.parseInt(tamanhosLidos[1]));
+        int[][] matrizB = Matrix.lerMatrizEmArquivoPGM(B, Integer.parseInt(tamanhosLidos[0]), Integer.parseInt(tamanhosLidos[1]));
+
+
+        canais.add(matrizR);
+        canais.add(matrizG);
+        canais.add(matrizB);        
+
+        int[][][] finalMatriz = juntarCanais(canais, Integer.parseInt(tamanhosLidos[0]), Integer.parseInt(tamanhosLidos[1]));
+        Singleton.getInstance().setOriginalPPM(finalMatriz);
+        Singleton.getInstance().setHeaderOriginal(headers);
+        Matrix.gravarMatrizEmArquivoPPM(finalMatriz, "temp.ppm", headers); 
+    }
+
+    public static int[][] lerImagemPGM(String fileName) {
+        String[] h = Operacoes.extrairHeader(fileName);
+        int largura = Integer.parseInt(h[1].split(" ")[0]);
+        int altura = Integer.parseInt(h[1].split(" ")[1]);
+        
+        Operacoes.normalizarImagemPGM(fileName);
+        int[][] m = Matrix.lerMatrizEmArquivoPGM(fileName, altura, largura);
+        return m;
+    }
+
+    public static int[][][] lerImagemPPM(String fileName) {
+        String[] h = Operacoes.extrairHeader(fileName);
+        int largura = Integer.parseInt(h[1].split(" ")[0]);
+        int altura = Integer.parseInt(h[1].split(" ")[1]);
+        
+        Operacoes.normalizarImagemPPM(fileName);
+        int[][][] m = Matrix.lerMatrizEmArquivoPPM(fileName, altura, largura);
+        return m;
+    }
+
+    public static void carregarImagem(String fileName) {
+        String[] h = Operacoes.extrairHeader(fileName);
+        int largura = Integer.parseInt(h[1].split(" ")[0]);
+        int altura = Integer.parseInt(h[1].split(" ")[1]);
+        Singleton.getInstance().setHeaderOriginal(h);
+
+        if(fileName.toLowerCase().endsWith(".pgm")) {
+            Operacoes.normalizarImagemPGM(fileName);
+            int[][] m = Matrix.lerMatrizEmArquivoPGM(fileName, altura, largura);
+            Singleton.getInstance().setOriginalPGM(m);
+            Singleton.getInstance().setFormato("pgm");
+        }
+        else {
+            Operacoes.normalizarImagemPPM(fileName);
+            int[][][] m = Matrix.lerMatrizEmArquivoPPM(fileName, altura, largura);
+            Singleton.getInstance().setOriginalPPM(m);
+            Singleton.getInstance().setFormato("ppm");
+        }     
+    }
+    
+
+    public static Map<String, ArrayList<String>> lerInstrucoes(String fileName) {
+        Map<String, ArrayList<String>> operacoes = new LinkedHashMap<String, ArrayList<String>>();
+        final File file = new File(fileName);
+
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+        } catch (final FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String st;
+        try {
+            while ((st = br.readLine()) != null) {
+                if(!st.startsWith("#")) {
+                    String[] splited = st.split(" ");
+                    String action = splited[0];
+                    ArrayList<String> args = new ArrayList<>();
+                    for(int i = 1; i < splited.length; i++) {
+                        args.add(splited[i]);
+                    }
+                    operacoes.put(action, args);
+                }
+            }
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+
+        return operacoes;
     }
 }
