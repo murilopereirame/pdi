@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"br.com.pereiratech.handlers"},{"l":"br.com.pereiratech.main"},{"l":"br.com.pereiratech.utils"}]

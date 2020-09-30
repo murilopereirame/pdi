@@ -8,12 +8,15 @@ package br.com.pereiratech.main;
 import br.com.pereiratech.handlers.Matrix;
 import br.com.pereiratech.handlers.Operacoes;
 import br.com.pereiratech.utils.Singleton;
+
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -62,6 +65,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnNeg = new java.awt.Button();
         btnSplit = new java.awt.Button();
         btnJoin = new java.awt.Button();
+        btnLaplaciando1 = new java.awt.Button();
+        btnLaplaciando2 = new java.awt.Button();
+        btnMedia = new java.awt.Button();
+        btnMediaBin = new java.awt.Button();
+        btnLaplaciando3 = new java.awt.Button();
+        btnLaplaciando4 = new java.awt.Button();
+        btnMedia1 = new java.awt.Button();
+        btnMedia2 = new java.awt.Button();
+        btnMedia3 = new java.awt.Button();
+        btnMedia4 = new java.awt.Button();
+        btnMedia5 = new java.awt.Button();
+        btnMedia6 = new java.awt.Button();
+        btnMedia7 = new java.awt.Button();
+        btnMedia8 = new java.awt.Button();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +183,126 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnLaplaciando1.setActionCommand("Ext Canais");
+        btnLaplaciando1.setLabel("Laplaciando");
+        btnLaplaciando1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaplaciando1ActionPerformed(evt);
+            }
+        });
+
+        btnLaplaciando2.setActionCommand("Ext Canais");
+        btnLaplaciando2.setLabel("Lapla. 02");
+        btnLaplaciando2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaplaciando2ActionPerformed(evt);
+            }
+        });
+
+        btnMedia.setActionCommand("Ext Canais");
+        btnMedia.setLabel("Média");
+        btnMedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMediaActionPerformed(evt);
+            }
+        });
+
+        btnMediaBin.setActionCommand("Ext Canais");
+        btnMediaBin.setLabel("Media+Bin");
+        btnMediaBin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMediaBinActionPerformed(evt);
+            }
+        });
+
+        btnLaplaciando3.setActionCommand("Ext Canais");
+        btnLaplaciando3.setLabel("Lapla + Orig");
+        btnLaplaciando3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaplaciando3ActionPerformed(evt);
+            }
+        });
+
+        btnLaplaciando4.setActionCommand("Ext Canais");
+        btnLaplaciando4.setLabel("Lapla2 + Orig");
+        btnLaplaciando4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaplaciando4ActionPerformed(evt);
+            }
+        });
+
+        btnMedia1.setActionCommand("Ext Canais");
+        btnMedia1.setLabel("RGB -> HSI");
+        btnMedia1.setName("rgbHSI"); // NOI18N
+        btnMedia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia1ActionPerformed(evt);
+            }
+        });
+
+        btnMedia2.setActionCommand("Ext Canais");
+        btnMedia2.setLabel("RGB -> CYM");
+        btnMedia2.setName("rgbCYM"); // NOI18N
+        btnMedia2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia2ActionPerformed(evt);
+            }
+        });
+
+        btnMedia3.setActionCommand("Ext Canais");
+        btnMedia3.setLabel("Mult. K");
+        btnMedia3.setName("multK"); // NOI18N
+        btnMedia3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia3ActionPerformed(evt);
+            }
+        });
+
+        btnMedia4.setActionCommand("Ext Canais");
+        btnMedia4.setLabel("Sum K");
+        btnMedia4.setName("sumK"); // NOI18N
+        btnMedia4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia4ActionPerformed(evt);
+            }
+        });
+
+        btnMedia5.setActionCommand("Ext Canais");
+        btnMedia5.setLabel("Sum Img");
+        btnMedia5.setName("sumImg"); // NOI18N
+        btnMedia5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia5ActionPerformed(evt);
+            }
+        });
+
+        btnMedia6.setActionCommand("Ext Canais");
+        btnMedia6.setLabel("Sub Img");
+        btnMedia6.setName("subImg"); // NOI18N
+        btnMedia6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia6ActionPerformed(evt);
+            }
+        });
+
+        btnMedia7.setActionCommand("Ext Canais");
+        btnMedia7.setLabel("Mediana");
+        btnMedia7.setName("mediana"); // NOI18N
+        btnMedia7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia7ActionPerformed(evt);
+            }
+        });
+
+        btnMedia8.setActionCommand("Ext Canais");
+        btnMedia8.setLabel("Binarizar");
+        btnMedia8.setName("bin"); // NOI18N
+        btnMedia8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedia8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
@@ -201,7 +338,35 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(btnLaplaciando1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLaplaciando2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(btnMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMediaBin, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(btnLaplaciando3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLaplaciando4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnMedia5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMedia3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMedia4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMedia6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(btnMedia1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMedia2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(btnMedia7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMedia8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
@@ -235,7 +400,35 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLaplaciando1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLaplaciando2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLaplaciando3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLaplaciando4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMediaBin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMedia7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMedia8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMedia1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMedia2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMedia4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMedia3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMedia5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMedia6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         btn90Anti.getAccessibleContext().setAccessibleName("btn90Anti");
@@ -255,11 +448,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(455, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addContainerGap(301, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(249, 249, 249))
         );
 
         pack();
@@ -271,7 +466,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         dialog.setFilenameFilter(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if(name.toLowerCase().endsWith(".pgm") || name.toLowerCase().endsWith(".ppm"))
+                if(name.toLowerCase().endsWith(".pgm") || name.toLowerCase().endsWith(".ppm") || name.toLowerCase().endsWith(".txt"))
                     return true; 
                 else
                     return false;
@@ -282,12 +477,64 @@ public class frmPrincipal extends javax.swing.JFrame {
         String file = dialog.getDirectory() + dialog.getFile(); 
         if(file.equals(""))
             return;
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(file));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+
+        if(file.toLowerCase().endsWith(".txt")) {
+            Map<String, ArrayList<String>> ops = Operacoes.lerInstrucoes(file);
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(new File(ops.get("load").get(0)));                
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+
+            int fatorA = 0;
+            int largura = 0;
+            int altura = 0;
+            String[] h = Operacoes.extrairHeader(ops.get("load").get(0));
+            largura = Integer.parseInt(h[1].split(" ")[0]);
+            altura = Integer.parseInt(h[1].split(" ")[1]);
+
+            if(altura > 472)
+                fatorA = 50;
+            else {
+                fatorA = 60;
+                altura = 472;
+            }
+
+            this.jLabel2.setIcon(new ImageIcon(img));
+            frmPrincipal j = this;
+            new Thread() {     
+                @Override
+                public void run() {
+                    Operacoes.processarInstrucoes(ops);
+
+                    String finalFile = ops.get("save") == null ? "temp." + Singleton.getInstance().getFormato() : ops.get("save").get(0);
+                    BufferedImage img = null;
+                    try {
+                        img = ImageIO.read(new File(finalFile));
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    }
+                    
+                    int fatorA = 0;
+                    int largura = 0;
+                    int altura = 0;
+                    String[] h = Operacoes.extrairHeader(ops.get("load").get(0));
+                    largura = Integer.parseInt(h[1].split(" ")[0]);
+                    altura = Integer.parseInt(h[1].split(" ")[1]);
+
+                    if(altura > 472)
+                        fatorA = 50;
+                    else {
+                        fatorA = 60;
+                        altura = 472;
+                    }
+                    j.jLabel2.setIcon(new ImageIcon(img));
+                }
+            }.start();
+
+            return;
+        }       
         
         JDialog d = new JDialog(this, "Aguarde..."); 
         d.setResizable(false);
@@ -306,6 +553,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         new Thread() {     
             @Override
             public void run() {
+                if(file.toLowerCase().endsWith(".pgm"))
+                    Operacoes.normalizarImagemPGM(file);
+                else
+                    Operacoes.normalizarImagemPPM(file);
                 int fatorA = 0;
                 int largura = 0;
                 int altura = 0;
@@ -313,34 +564,36 @@ public class frmPrincipal extends javax.swing.JFrame {
                 largura = Integer.parseInt(h[1].split(" ")[0]);
                 altura = Integer.parseInt(h[1].split(" ")[1]);
                 Singleton.getInstance().setHeaderOriginal(h);
-                Singleton.getInstance().setHeaderModificado(h);
                 if(file.toLowerCase().endsWith(".pgm")) {
-                    Operacoes.normalizarImagemPGM(file);
                     int[][] m = Matrix.lerMatrizEmArquivoPGM(file, altura, largura);
                     Singleton.getInstance().setOriginalPGM(m);
-                    Singleton.getInstance().setModificadoPGM(m);
                     Singleton.getInstance().setFormato("pgm");
                 }
                 else {
-                    Operacoes.normalizarImagemPPM(file);
                     int[][][] m = Matrix.lerMatrizEmArquivoPPM(file, altura, largura);
                     Singleton.getInstance().setOriginalPPM(m);
-                    Singleton.getInstance().setModificadoPPM(m);
                     Singleton.getInstance().setFormato("ppm");
                 }                              
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                else
+                else {
                     fatorA = 60;
+                    altura = 250;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
-                d.setVisible(false);
+                d.setVisible(false);                
             }
         }.start();
-                
-        
-        this.jLabel2.setIcon(new ImageIcon(img));
-        
+         
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(file));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        j.jLabel2.setIcon(new ImageIcon(img));
+
         d.setVisible(true);
     }//GEN-LAST:event_button1ActionPerformed
 
@@ -379,10 +632,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -429,10 +684,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));                
@@ -478,10 +735,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -527,10 +786,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -586,10 +847,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -635,10 +898,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -700,10 +965,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
         
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -750,10 +1017,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -807,10 +1076,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -865,10 +1136,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 int altura = Integer.parseInt(h[1].split(" ")[1]);
                 int fatorA = 0;
 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -888,15 +1161,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
             String fileName =  fileToSave.getAbsolutePath();
-                    // set visibility of dialog         
+
             frmPrincipal j = this;
             new Thread() {     
                 @Override
                 public void run() {
                 if(Singleton.getInstance().getFormato().equals("pgm"))
-                    Matrix.gravarMatrizEmArquivoPGM(Singleton.getInstance().getModificadoPGM(), fileName, Singleton.getInstance().getHeaderModificado());
+                    Matrix.gravarMatrizEmArquivoPGM(Singleton.getInstance().getOriginalPGM(), fileName, Singleton.getInstance().getHeaderOriginal());
                 else
-                    Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getModificadoPPM(), fileName, Singleton.getInstance().getHeaderModificado());
+                    Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getOriginalPPM(), fileName, Singleton.getInstance().getHeaderOriginal());
                 }
             }.start();            
         }
@@ -959,9 +1232,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 
                 if(fileNameB.equals(""))
                     return;
-                Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getModificadoPPM(), "temp.pgm", Singleton.getInstance().getHeaderModificado());                                
+                Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getOriginalPPM(), "temp.ppm", Singleton.getInstance().getHeaderOriginal());                                
                 
-                Operacoes.gravarCanaisSeparados("temp.pgm", fileNameR, fileNameG, fileNameB);
+                Operacoes.gravarCanaisSeparados(Singleton.getInstance().getOriginalPPM(), fileNameR, fileNameG, fileNameB);
                 
                 d.setVisible(false);
             }
@@ -1071,10 +1344,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 Singleton.getInstance().setOriginalPPM(Matrix.lerMatrizEmArquivoPPM(fileName, altura, largura));
                 Singleton.getInstance().setFormato("ppm");                                             
                 
-                if(altura > 241)
+                if(altura > 472)
                     fatorA = 50;
-                 else
+                else {
                     fatorA = 60;
+                    altura = 472;
+                }
 
                 j.setSize(largura+220, altura+fatorA);
                 jLabel2.setIcon(new ImageIcon(img));
@@ -1085,6 +1360,873 @@ public class frmPrincipal extends javax.swing.JFrame {
         d.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_btnJoinActionPerformed
+
+    private void btnLaplaciando1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaplaciando1ActionPerformed
+        String a = JOptionPane.showInputDialog("Insira o modo: \n0 - Leva negativos a 0\n1 - Mantém negativos\n2 - Leva a zero proporcionalmente");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+
+        String b = JOptionPane.showInputDialog("O elementro central é: \n1 - Positivo\n2 - Negativo");
+        
+        if(b.equals(""))
+            return;
+        
+        int bi = Integer.parseInt(b);
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.laplaciando(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai, bi);                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);
+    }//GEN-LAST:event_btnLaplaciando1ActionPerformed
+
+    private void btnLaplaciando2ActionPerformed(java.awt.event.ActionEvent evt) {
+        String a = JOptionPane.showInputDialog("Insira o modo: \n0 - Leva negativos a 0\n1 - Mantém negativos\n2 - Leva a zero proporcionalmente");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        String b = JOptionPane.showInputDialog("O elementro central é: \n1 - Positivo\n2 - Negativo");
+        
+        if(b.equals(""))
+            return;
+        
+        int bi = Integer.parseInt(b);
+
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.laplaciando2(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai, bi);                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);
+    }
+    private void btnMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediaActionPerformed
+        String a = JOptionPane.showInputDialog("Insira a dimensão do filtro: ");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.filtroMedio(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai);                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+
+                j.setSize(largura+220, altura+fatorA);
+                try {
+                    jLabel2.setIcon(new ImageIcon(img));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);
+    }//GEN-LAST:event_btnMediaActionPerformed
+
+    private void btnMediaBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediaBinActionPerformed
+        String a = JOptionPane.showInputDialog("Insira a dimensão do filtro: ");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        String c = JOptionPane.showInputDialog("Insira o k para binarização: ");
+        
+        if(c.equals(""))
+            return;
+        
+        int ci = Integer.parseInt(c);
+        
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm")) {
+                    Operacoes.filtroMedio(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai);     
+                    Operacoes.binarizacao(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ci);     
+                }
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+
+                j.setSize(largura+220, altura+fatorA);
+                try {
+                    jLabel2.setIcon(new ImageIcon(img));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);
+    }//GEN-LAST:event_btnMediaBinActionPerformed
+
+    private void btnLaplaciando3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaplaciando3ActionPerformed
+        String a = JOptionPane.showInputDialog("Insira o modo: \n0 - Leva negativos a 0\n1 - Mantém negativos\n2 - Leva a zero proporcionalmente");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        String b = JOptionPane.showInputDialog("O elementro central é: \n1 - Positivo\n2 - Negativo");
+        
+        if(b.equals(""))
+            return;
+        
+        int bi = Integer.parseInt(b);
+
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.laplaciandoPlusOrig(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai, bi);                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);        
+    }//GEN-LAST:event_btnLaplaciando3ActionPerformed
+
+    private void btnLaplaciando4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaplaciando4ActionPerformed
+        String a = JOptionPane.showInputDialog("Insira o modo: \n0 - Leva negativos a 0\n1 - Mantém negativos\n2 - Leva a zero proporcionalmente");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        String b = JOptionPane.showInputDialog("O elementro central é: \n1 - Positivo\n2 - Negativo");
+        
+        if(b.equals(""))
+            return;
+        
+        int bi = Integer.parseInt(b);
+
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.laplaciando2PlusOrig(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai, bi);                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);   
+    }//GEN-LAST:event_btnLaplaciando4ActionPerformed
+
+    private void btnMedia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia1ActionPerformed
+        if(!Singleton.getInstance().getFormato().equals("ppm"))
+            return;
+
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);                                        
+                
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Selecione o caminho para salvar o canal H");   
+
+                int userSelection = fileChooser.showSaveDialog(null);
+                String fileNameH = "";
+                String fileNameS = "";
+                String fileNameI = "";
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    fileNameH =  fileToSave.getAbsolutePath();            
+                }
+                
+                if(fileNameH.equals(""))
+                    return;
+
+                fileChooser.setDialogTitle("Selecione o caminho para salvar o canal S");   
+
+                userSelection = fileChooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    fileNameS =  fileToSave.getAbsolutePath();            
+                }
+                
+                if(fileNameS.equals(""))
+                    return;
+
+                fileChooser.setDialogTitle("Selecione o caminho para salvar o canal I");   
+
+                userSelection = fileChooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    fileNameI =  fileToSave.getAbsolutePath();            
+                }
+                
+                if(fileNameI.equals(""))
+                    return;
+                Matrix.gravarMatrizEmArquivoPPM(Singleton.getInstance().getOriginalPPM(), "temp.ppm", Singleton.getInstance().getHeaderOriginal());                                
+                
+                Operacoes.RGB2HSI(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), fileNameH, fileNameS, fileNameI);
+                
+                d.setVisible(false);
+            }
+        }.start();
+                
+        d.setVisible(true);
+    }//GEN-LAST:event_btnMedia1ActionPerformed
+
+    private void btnMedia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia2ActionPerformed
+        //RGB -> CYM
+    }//GEN-LAST:event_btnMedia2ActionPerformed
+
+    private void btnMedia3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia3ActionPerformed
+        String a = JOptionPane.showInputDialog("Insira a constante K:");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.MultImageKPGM(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai);                    
+                else
+                    Operacoes.MultImageKPPM(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), "temp.ppm", ai);
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);   
+    }//GEN-LAST:event_btnMedia3ActionPerformed
+
+    private void btnMedia4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia4ActionPerformed
+        String a = JOptionPane.showInputDialog("Insira a constante K:");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.SumImageKPGM(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai);                    
+                else
+                    Operacoes.SumImageKPPM(Singleton.getInstance().getOriginalPPM(), Singleton.getInstance().getHeaderOriginal(), "temp.ppm", ai);
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);   
+    }//GEN-LAST:event_btnMedia4ActionPerformed
+
+    private void btnMedia5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia5ActionPerformed        
+        FileDialog dialog = new FileDialog((Frame)null, "Selecione um arquivo...");
+        dialog.setFilenameFilter(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                if(name.toLowerCase().endsWith(".pgm") || name.toLowerCase().endsWith(".ppm"))
+                    return true; 
+                else
+                    return false;
+            }
+        });        
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        String file = dialog.getDirectory() + dialog.getFile();
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {                
+                String[] hImg2 = Operacoes.extrairHeader(file);
+                int larguraImg2 = Integer.parseInt(hImg2[1].split(" ")[0]);
+                int alturaImg2 = Integer.parseInt(hImg2[1].split(" ")[1]);         
+                if(file.toLowerCase().endsWith(".pgm")) {
+                    Operacoes.normalizarImagemPGM(file);
+                    int[][] m = Matrix.lerMatrizEmArquivoPGM(file, alturaImg2, larguraImg2);       
+                    Operacoes.SumImagePGM(Singleton.getInstance().getOriginalPGM(), m, Singleton.getInstance().getHeaderOriginal(), "temp.pgm");             
+                }
+                else {
+                    Operacoes.normalizarImagemPPM(file);
+                    int[][][] m = Matrix.lerMatrizEmArquivoPPM(file, alturaImg2, larguraImg2);
+                    Operacoes.SumImagePPM(Singleton.getInstance().getOriginalPPM(), m, Singleton.getInstance().getHeaderOriginal(), "temp.ppm");
+                }
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true); 
+    }//GEN-LAST:event_btnMedia5ActionPerformed
+
+    private void btnMedia6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia6ActionPerformed
+        FileDialog dialog = new FileDialog((Frame)null, "Selecione um arquivo...");
+        dialog.setFilenameFilter(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                if(name.toLowerCase().endsWith(".pgm") || name.toLowerCase().endsWith(".ppm"))
+                    return true; 
+                else
+                    return false;
+            }
+        });        
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        String file = dialog.getDirectory() + dialog.getFile();
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {                
+                String[] hImg2 = Operacoes.extrairHeader(file);
+                int larguraImg2 = Integer.parseInt(hImg2[1].split(" ")[0]);
+                int alturaImg2 = Integer.parseInt(hImg2[1].split(" ")[1]);         
+                if(file.toLowerCase().endsWith(".pgm")) {
+                    Operacoes.normalizarImagemPGM(file);
+                    int[][] m = Matrix.lerMatrizEmArquivoPGM(file, alturaImg2, larguraImg2);       
+                    Operacoes.SubImagePGM(Singleton.getInstance().getOriginalPGM(), m, Singleton.getInstance().getHeaderOriginal(), "temp.pgm");             
+                }
+                else {
+                    Operacoes.normalizarImagemPPM(file);
+                    int[][][] m = Matrix.lerMatrizEmArquivoPPM(file, alturaImg2, larguraImg2);
+                    Operacoes.SubImagePPM(Singleton.getInstance().getOriginalPPM(), m, Singleton.getInstance().getHeaderOriginal(), "temp.ppm");
+                }
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true); 
+    }//GEN-LAST:event_btnMedia6ActionPerformed
+
+    private void btnMedia7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia7ActionPerformed        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.filtroMediana(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm");                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+
+                j.setSize(largura+220, altura+fatorA);
+                try {
+                    jLabel2.setIcon(new ImageIcon(img));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);
+    }//GEN-LAST:event_btnMedia7ActionPerformed
+
+    private void btnMedia8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedia8ActionPerformed
+        String a = JOptionPane.showInputDialog("Insira o ponto de mudança:");
+        
+        if(a.equals(""))
+            return;
+        
+        int ai = Integer.parseInt(a);
+        
+        JDialog d = new JDialog(this, "Aguarde..."); 
+        d.setResizable(false);
+        // create a label 
+        JLabel l = new JLabel("Aguarde enquanto trabalhamos...", SwingConstants.CENTER); 
+        l.setVisible(true);
+        l.setLocation(200, 40);   
+        d.setLocationRelativeTo(null);
+        d.setModal(true);
+        d.add(l);        
+        // setsize of dialog 
+        d.setSize(300, 100);  
+
+        // set visibility of dialog 
+                // set visibility of dialog         
+        frmPrincipal j = this;
+        new Thread() {     
+            @Override
+            public void run() {
+        
+                if(Singleton.getInstance().getFormato().toLowerCase().equals("pgm"))
+                    Operacoes.binarizacao(Singleton.getInstance().getOriginalPGM(), Singleton.getInstance().getHeaderOriginal(), "temp.pgm", ai);                    
+                else
+                    return;
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("temp."+Singleton.getInstance().getFormato()));
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                
+                String[] h = Operacoes.extrairHeader("temp."+Singleton.getInstance().getFormato());
+                int largura = Integer.parseInt(h[1].split(" ")[0]);
+                int altura = Integer.parseInt(h[1].split(" ")[1]);
+                int fatorA = 0;
+
+                if(altura > 472)
+                    fatorA = 50;
+                else {
+                    fatorA = 60;
+                    altura = 472;
+                }
+                j.setSize(largura+220, altura+fatorA);
+                jLabel2.setIcon(new ImageIcon(img));
+
+                d.setVisible(false);
+            }
+        }.start();
+        
+        d.setVisible(true);
+    }//GEN-LAST:event_btnMedia8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1132,6 +2274,20 @@ public class frmPrincipal extends javax.swing.JFrame {
     private java.awt.Button btnFlipV;
     private java.awt.Button btnGama;
     private java.awt.Button btnJoin;
+    private java.awt.Button btnLaplaciando1;
+    private java.awt.Button btnLaplaciando2;
+    private java.awt.Button btnLaplaciando3;
+    private java.awt.Button btnLaplaciando4;
+    private java.awt.Button btnMedia;
+    private java.awt.Button btnMedia1;
+    private java.awt.Button btnMedia2;
+    private java.awt.Button btnMedia3;
+    private java.awt.Button btnMedia4;
+    private java.awt.Button btnMedia5;
+    private java.awt.Button btnMedia6;
+    private java.awt.Button btnMedia7;
+    private java.awt.Button btnMedia8;
+    private java.awt.Button btnMediaBin;
     private java.awt.Button btnNeg;
     private java.awt.Button btnSplit;
     private java.awt.Button button1;

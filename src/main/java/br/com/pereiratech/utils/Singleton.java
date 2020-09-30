@@ -12,11 +12,8 @@ package br.com.pereiratech.utils;
 public class Singleton {
     private static Singleton instance;
     private static String[] headerOriginal;
-    private static String[] headerModificado;
     private static int[][] originalPGM;
-    private static int[][] modificadoPGM;
     private static int[][][] originalPPM;
-    private static int[][][] modificadoPPM;
     private static String formato;
     
     public static Singleton getInstance() {
@@ -33,28 +30,12 @@ public class Singleton {
         this.headerOriginal = headerOriginal;
     }
 
-    public String[] getHeaderModificado() {
-        return headerModificado;
-    }
-
-    public void setHeaderModificado(String[] headerModificado) {
-        this.headerModificado = headerModificado;
-    }
-
     public int[][] getOriginalPGM() {
         return originalPGM;
     }
 
     public void setOriginalPGM(int[][] originalPGM) {
         this.originalPGM = originalPGM;
-    }
-
-    public int[][] getModificadoPGM() {
-        return modificadoPGM;
-    }
-
-    public void setModificadoPGM(int[][] modificadoPGM) {
-        this.modificadoPGM = modificadoPGM;
     }
 
     public int[][][] getOriginalPPM() {
@@ -65,14 +46,6 @@ public class Singleton {
         this.originalPPM = originalPPM;
     }
 
-    public int[][][] getModificadoPPM() {
-        return modificadoPPM;
-    }
-
-    public void setModificadoPPM(int[][][] modificadoPPM) {
-        this.modificadoPPM = modificadoPPM;
-    }
-    
     public void setFormato(String formato) {
         this.formato = formato;
     }
